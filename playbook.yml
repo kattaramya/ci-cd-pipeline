@@ -1,0 +1,15 @@
+cat << > ansible/deploy.yml
+- hosts: webservers
+  tasks:
+   - name: Pull latest Docker image
+     docker_image:
+      name: ramya2907/yourimage
+      tag: latest
+      state: present
+   - name: Ensure Docker container is running
+     docker_container:
+      name: app.py
+      image: ramya2907/yourimage:latest
+      state: started
+      ports:
+       - "80:80"  
